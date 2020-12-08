@@ -29,7 +29,7 @@ const Search = () =>{
     }
     else{
      
-    let url = `https://smartcontactmanager.herokuapp.com/search/${query}`;
+    let url = `https://smartercontact-manager.herokuapp.com/search/${query}`;
 
         fetch(url)
         .then((response) => {
