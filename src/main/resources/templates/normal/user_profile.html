@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="normal/base::Layout(~{::section})">
+<head>
+<meta charset="UTF-8" />
+<title>Contact View</title>
+</head>
+<body>
+	<section>
+		<style>
+
+#profile-image1 {
+	cursor: pointer;
+	border: 5px solid #03b1ce;
+}
+</style>
+		<div class="card mr-3 ml-3">
+
+			<div class="card-body">
+
+				<div class="container text-center">
+					<!--Show Message start-->
+					<div class="row">
+
+						<div th:if="${session.message}"
+							th:classappend="${session.message.type}"
+							class="alert my-0 col-md-6 offset-md-3 mt-2 py-0 " role="alert">
+							<P th:text="${session.message.content}" class="text-center py-2"></P>
+
+							<th:block th:text="${#session.removeAttribute('message')}"></th:block>
+
+						</div>
+					</div>
+
+					<!--Show Message end -->
+					<img style="height: 20%; width: 20%;" alt="Profile Photo"
+						class="profile_photo hidden" id="profile-image1"
+						th:src="@{/images/profile.png}" /> 
+					<h3>
+						<span th:text="${user.name}"></span>
+					</h3>
+
+
+					<table class="table table-bordered my-auto">
+						<thead>
+							<tr>
+								<th scope="col">#ID</th>
+								<th scope="col">SCMUSERID<span th:text="${user.id}"></span></th>
+							</tr>
+						</thead>
+						<tbody>
+
+							<tr>
+								<th scope="col">Phone</th>
+								<td scope="row"><span th:text="${user.phone}"></span></td>
+
+							</tr>
+							<tr>
+								<th scope="col">Email</th>
+
+								<td scope="row"><span th:text="${user.email}"></span></td>
+
+							</tr>
+							<tr>
+								<th scope="col">Account Active</th>
+
+								<td scope="row"><span
+									th:text="${#strings.capitalize(user.enables)}"></span></td>
+
+							</tr>
+						</tbody>
+						<div class="description">
+
+							<!--use utext to solve html text that is come through Tiny Mce-->
+
+							<p th:utext="${user.about}"></p>
+
+						</div>
+
+					</table>
+
+					<div class="container mt-5">
+
+						<a th:href="@{/user/user_update}"
+							class=" btn btn-info btn-sm btn-block">UPDATE</a>
+
+					</div>
+					<div class="form-group mt-3">
+						<input th:onClick="|deleteAccount()|" type="button"
+							name="btnSubmit" class=" btn btn-danger btn-sm btn-block "
+							value="Delete your account " />
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+		<script>
+			
+			
+			
+			const deleteAccount=()=>{
+				swal({
+					title:"Are you sure?",
+					text:"You want to delete your Account...",
+					icon:"warning",
+					buttons:true,
+					dangerMode:true,
+					})
+					.then((willDelete) => {
+						if(willDelete){
+							
+							swal("Your account deleted successfully!!",{
+								icon:"success",
+							});
+							
+							
+							
+							window.location="/user/deleteUser";
+						}
+						else{
+							swal("Your account is safe!")
+						}
+					});
+			}
+		
+		
+		</script>
+	</section>
+
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:fragment="Layout(content)">
+<head>
+<meta charset="UTF-8"/>
+<title th:text="${title}">Base</title>
+<link rel="stylesheet" th:href="@{/css/bootstrap.css}" />
+<link rel="stylesheet" th:href="@{/css/normal_user.css}" />
+<link rel="stylesheet" th:href="@{/css/add_contact.css}" /> 
+<script th:src="@{/js/jquery.js}"></script>
+<script th:src="@{/js/home.js}"></script>
+
+<script th:src="@{/js/sweetalert.js}"></script>
+<script type="text/javascript" th:src="@{/js/bootstrap.js}"></script>
+
+</head>
+<body>
+
+
+
+	<div>
+	 <!-- start of navbar -->
+		<nav
+			class="navbar fixed-top rad navbar-expand-lg navbar-light bg-info">
+			<a class="navbar-brand" th:href="@{/}">Smart Contact Manager</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarSupportedContent"
+				aria-controls="navbarSupportedContent" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav ml-auto text-uppercase">
+					<li class="nav-item active"><a class="nav-link" th:href="@{/}">Home
+							<span class="sr-only">(current)</span>
+					</a></li>
+
+
+					<li class="nav-item"><a class="nav-link"
+						th:text="${user.name}" th:href="@{/user/profile}"></a></li>
+
+					<li class="nav-item"><a class="nav-link" href="">Contact
+							Us</a></li>
+
+					<li class="nav-item"><a class="nav-link" th:href="@{/logout}">Logout</a>
+					</li>
+
+				</ul>
+			</div>
+		</nav>
+	</div>
+<!-- 	End of navbar-->
+	
+	<!-- Start of Sidebar -->
+	
+	<div class="sidebar mt-2">
+		
+		<h5 th:text="Welcome + ' ' +${user.name}" class="ml-2 "></h5>
+		<span onclick="toggleSidebar()" class="crossBtn">&times;</span>
+	
+		<a th:href="@{/user/index}" > <i class="fas-fa-home"></i> Home</a>
+		<a th:href="@{/user/show_contact/0?sortField=name&sortDir=asc}" > <i class="fas-fa-id-card-alt"></i>  View Contacts</a>
+		<a th:href="@{/user/add_contact}" > <i class="fas-fa-pencil-alt"></i> Add Contacts</a>
+		<a th:href="@{/user/profile}" > <i class="fas-fa-user-circle"></i> My Profile</a>
+		<a href="" > <i class="fas-fa-cogs"></i> Setting</a>
+		<a th:href="@{/logout}" > <i class="fas-fa-sign-out-alt"></i> Logout</a>
+		<div class="divider"></div>			
+	</div>
+		
+	<!-- End of sidebar -->
+	
+	<div class="content mt-5">
+	
+		<i onclick="toggleSidebar()" class="fas fa-bars m-3">+</i>
+	
+			<div th:replace="${content}"></div>
+			
+	</div>
+</body>
+
+</html>
+
+

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="base::Layout(~{::section})">
+<head>
+<meta charset="UTF-8" />
+<title>SignIn Page</title>
+</head>
+<body>
+
+	<section>
+		<div class="container h-100">
+			<div class="d-flex justify-content-center h-100">
+
+				<div class="user_card">
+					<div class="d-flex justify-content-center">
+
+						<div class="brand_logo_container">
+							<img th:src="@{/images/contact.svg}" class="brand_logo"
+								alt="Logo">
+						</div>
+			</div>
+
+					<div class="d-flex justify-content-center form_container ">
+
+						<form method="post" th:action="@{/dologin}">
+
+							<div th:if="${param.error}"
+								class="alert alert-danger text-center">Invalid username
+								and password</div>
+							<div th:if="${param.logout}" class="alert alert-success">
+								You have been logged out</div>
+								
+								<!--Show Message -->
+								<div th:if="${session.message}"
+									th:classappend="${session.message.type}" class="alert py-0 pl-3"
+									role="alert">
+									<P th:text="${session.message.content}"></P>
+
+									<th:block th:text="${#session.removeAttribute('message')}"></th:block>
+
+
+								</div>
+								<!--Show Message End-->
+								
+								
+							<div class="input-group mb-3">
+
+								<div class="input-group-append">
+									<span class="input-group-text"><i class="fas fa-user"></i></span>
+								</div>
+								<input type="text" name="username"
+									class="form-control input_user" required="required" placeholder="username">
+							</div>
+							<div class="input-group mb-2">
+								<div class="input-group-append">
+									<span class="input-group-text"><i class="fas fa-key"></i></span>
+								</div>
+								<input type="password" name="password"
+									class="form-control input_pass" required="required" placeholder="password">
+							</div>
+							<div class="form-group">
+								<div class="custom-control custom-checkbox">
+									<input type="checkbox" class="custom-control-input"
+										id="customControlInline"> <label
+										class="custom-control-label" for="customControlInline">Remember
+										me</label>
+								</div>
+							</div>
+							<div class="d-flex justify-content-center mt-3 login_container">
+								<button type="submit" name="button" class="btn login_btn">Login</button>
+							</div>
+						</form>
+					</div>
+
+					<div class="mt-4">
+						<div class="d-flex justify-content-center links">
+							Don't have an account? <a th:href="@{/signup}" class="ml-2">Sign
+								Up</a>
+						</div>
+						<div class="d-flex justify-content-center links">
+							<a href="/forgot">Forgot your password?</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+</body>
+</html>

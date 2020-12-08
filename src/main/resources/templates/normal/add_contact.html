@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="normal/base::Layout(~{::section})">
+<head>
+<meta charset="UTF-8" />
+<title>Index Page</title>
+</head>
+<body>
+
+	<section>
+	<style>
+input.hidden {
+	position: absolute;
+	left: -9999px;
+}
+
+#profile-image1 {
+	cursor: pointer;
+	border: 5px solid #03b1ce;
+}
+</style>
+		<div class="container contact-form">
+			
+			<!--Show Message start-->
+			<div class="row">
+
+				<div th:if="${session.message}"
+					th:classappend="${session.message.type}"
+					class="alert my-0 col-md-6 offset-md-3 mt-2 py-0 " role="alert">
+					<P th:text="${session.message.content}" class="text-center py-2"></P>
+
+					<th:block th:text="${#session.removeAttribute('message')}"></th:block>
+
+				</div>
+			</div>
+
+			<!--Show Message end -->
+			<form method="POST" th:object="${contact}"
+				enctype="multipart/form-data" th:action="@{/user/process_contact}">
+				
+				<div class="contact-image">
+				<img th:src="@{/images/profile.png}" style="margin-top:-15%;" class="hidden" id="profile-image1" alt="add_contact" />
+			
+				 <input
+						id="profile-image-upload" name="profileImg" class="hidden" type="file">
+					<div style="color: #999;">click here to change profile image</div>
+				
+			
+			</div>
+				
+				<h3 class="mt-3">Add Contact</h3>
+				<div class="row">
+					<div class="col-md-6">
+
+						<div class="form-group">
+							<input type="text" name="name" class="form-control"
+								placeholder="Your Name *" required="required" />
+						</div>
+
+						<div class="form-group">
+							<input type="text" name="nickName" class="form-control"
+								placeholder="Your NickName*" required="required" />
+						</div>
+
+						<div class="form-group">
+							<input type="text" name="email" class="form-control"
+								placeholder="Your Email *" required="required" />
+						</div>
+
+						<div class="form-group">
+							<input type="number" name="phone" class="form-control"
+								placeholder="Your Phone Number *" required="required" />
+						</div>
+
+						<div class="form-group">
+							<input type="text" name="work" class="form-control"
+								placeholder="Work *" required="required" />
+						</div>
+
+
+						<div class="form-group ">
+							<input type="submit" name="btnSubmit" class="btnContact "
+								value="Add Contact" />
+						</div>
+
+					</div>
+
+					<div class="col-md-6">
+
+						<div class="form-group">
+							<textarea id="mytextarea" name="description" class="form-control"
+								placeholder="About them... *"
+								style="width: 30vw; height: 150px;"></textarea>
+						</div>
+
+					</div>
+
+				</div>
+			</form>
+		</div>
+		<script
+			src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js"
+			referrerpolicy="origin"></script>
+		<script>
+		
+		$(function() {
+			$('#profile-image1').on('click', function() {
+				$('#profile-image-upload').click();
+			});
+		});
+		
+			tinymce.init({
+				selector : '#mytextarea'
+			});
+		</script>
+	</section>
+
+
+</body>
+</html>

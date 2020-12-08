@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="Layout(content)">
+<head>
+	<meta charset="UTF-8" xmlns:th="http://www.thymeLeaf.org" th:fragment="Layout(content)"/>
+	<title th:text="${title}">Base</title>
+	<link rel="stylesheet" th:href="@{/css/bootstrap.css}" />
+	<link rel="stylesheet" th:href="@{/css/style.css}" />
+	<link rel="stylesheet" th:href="@{/css/forgot_password.css}" />
+	<script th:src="@{/js/userprofile.js}"></script>
+	<script th:src="@{/js/jquery.js}"></script>
+	<script type="text/javascript" th:src="@{/js/bootstrap.js}"></script>
+	
+</head>
+<body>
+	
+	
+	
+	<div>
+		  <nav class="navbar sticky-top rad navbar-expand-lg navbar-light bg-info">
+        <a class="navbar-brand"  th:href="@{/}">Smart Contact Manager</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto text-uppercase">
+                <li class="nav-item active">
+                    <a class="nav-link"  th:href="@{/}">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="">About</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/signin}">Login</a>
+                </li>
+
+                
+
+				 <li class="nav-item">
+                    <a class="nav-link" th:href="@{/signup}">SignUp</a>
+                </li>
+
+            </ul>
+         </div>
+    </nav>
+    
+   
+	</div>
+	
+	<div th:replace="${content}">
+		
+	</div>
+	
+</body>
+
+</html>
+
+ 

@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="normal/base::Layout(~{::section})">
+<head>
+<meta charset="UTF-8" />
+<title>Contact View</title>
+</head>
+<body>
+	<section>
+
+
+		<div th:if="${total_contacts}==0">
+			<div class="card m-5">
+			<div class="card-body text-center my-5">
+			
+			<h2 class="text-primary"> Sorry , you don't have any contact yet !!</h2>
+			
+			</div>
+			</div>
+			
+			
+		</div>
+	
+		<div class="card mx-3" th:unless="${total_contacts}==0">
+			
+			<div class="card-body" >
+				<!--Show Message start-->
+				<div class="row">
+
+					<div th:if="${session.message}"
+						th:classappend="${session.message.type}"
+						class="alert my-0 col-md-6 offset-md-3 mt-2 py-0 " role="alert">
+						<P th:text="${session.message.content}" class="text-center py-2"></P>
+
+						<th:block th:text="${#session.removeAttribute('message')}"></th:block>
+
+					</div>
+				</div>
+
+				<!--Show Message end -->
+				<div class="text-center">
+					<h3>Your Contacts</h3>
+					<span th:text="'Total contact is '+ ${total_contacts}"></span>
+					
+					
+					
+				</div>
+				
+				<!-- Search Start -->
+				<div class="search-container my-3">
+					<input id="search-input" onkeyup="Search()" type="text" class="form-control" placeholder="search your contact " />
+					
+					<div class="search-result">
+					
+					</div>				
+				
+				</div>
+				<!-- Search End -->
+				
+				<table class="table table-bordered my-auto">
+					<thead>
+						<tr>
+							<th scope="col">#</th>
+							<th scope="col"><a
+								th:href="@{'/user/show_contact/' + ${current_page} + '?sortField=name&sortDir=' + ${reverseSortDir}}">Name</a>
+							</th>
+							<th scope="col"><a
+								th:href="@{'/user/show_contact/' + ${current_page} + '?sortField=email&sortDir=' + ${reverseSortDir}}">Email</a>
+							</th>
+							<th scope="col"><a
+								th:href="@{'/user/show_contact/' + ${current_page} + '?sortField=phone&sortDir=' + ${reverseSortDir}}">Phone</a>
+							</th>
+
+
+
+
+							<th scope="col">Action</th>
+						</tr>
+					</thead>
+					<tbody>
+
+						<tr th:each="c,status : ${contacts} ">
+							<th scope="row" th:text="${status.count}"></th>
+
+							<td scope="row"><img class="profile_photo"
+								th:src="@{'/images/'+ ${c.image}}" alt="profile_photo" /> <span
+								th:text="${c.name}"></span></td>
+
+
+							<td scope="row"><a
+								th:href="@{'/user/'+${c.cid}+'/contact_profile' }">
+									<p class="mt-3" th:text="${c.email}"></p>
+							</a></td>
+
+
+							<td scope="row"><p class="mt-3" th:text="${c.phone}"></p></td>
+
+							<td>
+								<div class="text-center mt-3">
+									<form method="post" th:action="@{'/user/update/'+${c.cid}}">
+										<button class="btn btn-info btn-md " type="submit">Update</button>
+									</form>
+									<button th:onClick="|deleteContact(${c.cid},${current_page})|"
+										class="btn btn-danger btn-md mt-2 ">Delete</button>
+							</td>
+
+							</div>
+						</tr>
+
+					</tbody>
+				</table>
+
+				<nav aria-label="..." class="mt-3">
+					<ul class="pagination">
+						<li th:if="${current_page!=0}" class="page-item "><a
+							class="page-link"
+							th:href="@{'/user/show_contact/'+${current_page-1}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} }"
+							tabindex="-1">Previous</a></li>
+
+						<li th:classappend="${current_page+1==i?'active':''}"
+							th:each="i : ${#numbers.sequence(1,total_pages)}"
+							class="page-item"><a class="page-link"
+							th:href="@{'/user/show_contact/'+${i-1} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} }"><span
+								th:text="${i}"></span> </a></li>
+
+						<li th:if="${current_page+1!=total_pages}" class="page-item"><a
+							class="page-link"
+							th:href="@{'/user/show_contact/'+${current_page+1} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} }">Next</a></li>
+					</ul>
+				</nav>
+
+			</div>
+		</div>
+		<script>
+		
+			const deleteContact=(cID,currentPage)=>{
+				swal({
+					title:"Are you sure?",
+					text:"You want to delete this contact...",
+					icon:"warning",
+					buttons:true,
+					dangerMode:true,
+					})
+					.then((willDelete) => {
+						if(willDelete){
+							
+							swal("Your contact deleted successfully!!",{
+								icon:"success",
+							});
+							
+							
+							window.location="/user/delete/"+cID+"/"+currentPage;
+						}
+						else{
+							swal("Your contact is safe!")
+						}
+					});
+			}
+		
+		</script>
+	</section>
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="normal/base::Layout(~{::section})">
+<head>
+<meta charset="UTF-8" />
+<title>Contact View</title>
+</head>
+<body>
+	<section>
+
+		<div class="card mr-3 ml-3">
+
+			<div class="card-body">
+
+				<div class="container text-center">
+				<!--Show Message start-->
+			<div class="row">
+			
+			<div th:if="${session.message}"
+				th:classappend="${session.message.type}" class="alert my-0 col-md-6 offset-md-3 mt-2 py-0 "
+				role="alert">
+				<P th:text="${session.message.content}" class="text-center py-2"></P>
+
+				<th:block th:text="${#session.removeAttribute('message')}"></th:block>
+
+			</div>
+			</div>
+
+			<!--Show Message end -->
+					<img th:src="@{'/images/'+${contact.image}}"
+						style="height: 20%; width: 20%;" alt="Profile Photo"
+						class="profile_photo" />
+
+					<h3>
+						<span th:text="${contact.name}"></span> ( <span
+							th:text="${contact.nickName}"></span> )
+					</h3>
+
+
+					<table class="table table-bordered my-auto">
+						<thead>
+							<tr>
+								<th scope="col">#ID</th>
+								<th scope="col">SCMUSER<span th:text="${contact.cid}"></span></th>
+							</tr>
+						</thead>
+						<tbody>
+
+							<tr>
+								<th scope="col">Phone</th>
+								<td scope="row"><span th:text="${contact.phone}"></span></td>
+
+							</tr>
+							<tr>
+								<th scope="col">Email</th>
+
+								<td scope="row"><span th:text="${contact.email}"></span></td>
+
+							</tr>
+							<tr>
+								<th scope="col">Work</th>
+
+								<td scope="row"><span th:text="${contact.work}"></span></td>
+
+							</tr>
+						</tbody>
+						<div class="description">
+
+							<!--use utext to solve html text that is come through Tiny Mce-->
+
+							<p th:utext="${contact.description}"></p>
+
+						</div>
+
+					</table>
+
+					<div class="container mt-3">
+						<form th:action="@{'/user/update/'+${contact.cid}}" method="post">
+						<button class=" btn btn-info btn-sm btn-block">UPDATE</button>
+						</form>
+						<button th:onClick="|deleteContact(${contact.cid})|" class=" btn btn-danger btn-sm btn-block mt-3">DELETE</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script>
+		
+			const deleteContact=(cID)=>{
+				swal({
+					title:"Are you sure?",
+					text:"You want to delete this contact...",
+					icon:"warning",
+					buttons:true,
+					dangerMode:true,
+					})
+					.then((willDelete) => {
+						if(willDelete){
+							
+							swal("Your contact deleted successfully!!",{
+								icon:"success",
+							});
+							
+							window.location="/user/delete/"+cID+"/0";
+						}
+						else{
+							swal("Your contact is safe!")
+						}
+					});
+			}
+		
+		</script>
+	</section>
+
+</body>
+</html>

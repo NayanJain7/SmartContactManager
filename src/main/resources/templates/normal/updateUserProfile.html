@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="normal/base::Layout(~{::section})">
+<head>
+<meta charset="UTF-8" />
+<title>Index Page</title>
+<link rel="stylesheet" th:href="@{/css/add_contact.css}" />
+</head>
+<body>
+
+	<section>
+
+		<div class="container contact-form">
+			<div class="contact-image">
+				<img th:src="@{'/images/default.png'}" style="height:25%;width:25%;" alt="profile image" />
+			</div>
+
+			<!--Show Message start-->
+			<div class="row">
+			
+			<div th:if="${session.message}"
+				th:classappend="${session.message.type}" class="alert my-0 col-md-6 offset-md-3 mt-2 py-0 "
+				role="alert">
+				<P th:text="${session.message.content}" class="text-center py-2"></P>
+
+				<th:block th:text="${#session.removeAttribute('message')}"></th:block>
+
+			</div>
+			</div>
+
+			<!--Show Message end -->
+			<form method="POST" 
+				th:action="@{/user/update_profile}">
+				<h3>Update your Details</h3>
+				<div class="row">
+					<div class="col-md-6">
+
+						<div class="form-group">
+						<label id="name">Your Name *</label>
+							<input type="text" id="name" name="name" class="form-control"
+								placeholder="Your Name *" th:value="${user.name}" />
+						</div>
+
+						
+
+						<div class="form-group">
+						<label id="email">Your Email *</label>
+							<input type="text" name="email" id="email" class="form-control"
+								placeholder="Your Email *" th:value="${user.email}"/>
+						</div>
+
+						<div class="form-group mb-5">
+						<label id="phone">Your Phone *</label>
+							<input type="text" name="phone" class="form-control" id="phone"
+								placeholder="Your Phone Number *" th:value="${user.phone}" />
+						</div>
+
+
+						
+
+
+					</div>
+
+					<div class="col-md-6">
+
+						<div class="form-group">
+						<label id="mytextarea">Your About  *</label>
+							<textarea  th:utext="${user.about}" id="mytextarea"  name="about" class="form-control"
+								placeholder="About them... *" style="width:30vw; height: 220px;"></textarea>
+						</div>
+
+					</div>
+					
+					</div>
+					<div class="form-group mt-5">
+							<input type="submit" name="btnSubmit" class=" btn btn-success btn-sm btn-block "
+								value="Update details" />
+					</div>
+
+				
+			</form>
+		</div>
+	
+	</section>
+		
+		
+</body>
+</html>

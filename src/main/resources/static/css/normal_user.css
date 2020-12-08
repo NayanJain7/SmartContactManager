@@ -1,0 +1,77 @@
+
+@media only screen and (max-width:300px){
+	.sidebar{
+		display:none;
+		width:80% !important;
+		background:#ffffff;
+		height:100vh;
+		position: fixed;
+		padding-top: 20px;
+		color:grey;
+	}
+	.content{
+		margin-left: 0% !important;
+	}
+}
+
+.sidebar{
+	width:18%;
+	background:lightgray;
+	height:100vh;
+	position: fixed;
+	padding-top: 45px;
+	color:black;
+}
+.sidebar a{
+	display: block;
+	width:100%;
+	padding: 10px 25px;
+	text-decoration: none;
+	color:black;
+}
+
+.sidebar a:hover{
+	background: #e2e2e2;
+	padding-left: 10px;
+}
+.sidebar .divider{
+	height:5px;
+	width:100%;
+	margin-top: 10px;
+	background: #e2e2e2;
+	
+}
+
+.content{
+	margin-left: 18%;
+	/* background:lightgray; */
+	background:-webkit-linear-gradient(left, #0072ff, #00c6ff) !important;
+	height: 100vh;
+}
+.sidebar .crossBtn {
+	position: absolute;
+	top:0;
+	right: 35px;
+	font-size: 36px;
+	cursor: pointer;
+}
+.profile_photo{
+	width:80px;
+	height:80px;
+	object-fit:cover;
+	border-radius:50%;
+	
+}
+
+/* Search Css */
+
+.search-container{
+	position:relative;
+}
+.search-result{
+	position: absolute;
+	width:100%;
+	padding:8px;
+	border: 1px solid gray;
+	display:none;
+}
