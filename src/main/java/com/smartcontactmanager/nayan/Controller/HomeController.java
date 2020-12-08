@@ -71,7 +71,7 @@ public class HomeController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			model.addAttribute("user", user);
-			session.setAttribute("message", new Message("Something went wrong ", "alert-danger"));
+			//session.setAttribute("message", new Message("Something went wrong ", "alert-danger"));
 
 		}
 
