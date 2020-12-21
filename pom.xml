@@ -71,7 +71,13 @@
 			<version>9.4-1206-jdbc42</version>
 		</dependency> 
 
+		<dependency>
 
+			<groupId>org.apache.tomcat</groupId>
+			<artifactId>tomcat-jdbc</artifactId>
+			<version>9.0.21</version>
+		</dependency>
+		
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-validator</artifactId>
