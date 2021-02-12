@@ -27,8 +27,7 @@ public class HomeController {
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 	
-	@Autowired
-	private ReCaptchaValidationService validator;
+	
 
 	@GetMapping("/")
 	public String home(Model model) {
@@ -61,8 +60,8 @@ public class HomeController {
 				return "signup";
 			}
 			
-			if(validator.validateCaptcha(captcha))
-	        {    
+			else
+	        	{    
 				user.setEnables(true);
 				user.setRole("ROLE_USER");
 				user.setImageUrl("default.png");
@@ -75,9 +74,7 @@ public class HomeController {
 				model.addAttribute("user", new User());
 				session.setAttribute("message", new Message("Successfully Registered ", "alert-success"));
 			 } 
-		     else { 
-		    	 session.setAttribute("message", new Message("Please Verify Captcha", "alert-danger"));
-		    	 }      
+		    
 
 
 
