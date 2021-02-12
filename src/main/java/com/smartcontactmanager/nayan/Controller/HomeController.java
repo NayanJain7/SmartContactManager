@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.smartcontactmanager.nayan.Dao.UserRepository;
 import com.smartcontactmanager.nayan.Entity.User;
-import com.smartcontactmanager.nayan.Service.ReCaptchaValidationService;
+
 import com.smartcontactmanager.nayan.message.Message;
 
 @Controller
@@ -52,8 +52,7 @@ public class HomeController {
 
 	@PostMapping("/do_register")
 	public String do_register(@Valid @ModelAttribute("user") User user, BindingResult result,
-			@RequestParam(value = "aggrement", defaultValue = "false") boolean aggrement,
-			@RequestParam(name = "g-recaptcha-response") String captcha, Model model, HttpSession session) {
+			Model model, HttpSession session) {
 
 		try {
 
