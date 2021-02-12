@@ -41,6 +41,12 @@ public class HomeController {
 		model.addAttribute("user", new User());
 		return "signup";
 	}
+	
+	@GetMapping("/show")
+	public List<User> showData() {
+		List<User> findAll = userRepo.findAll();
+		return findAll;
+	}
 
 	// handling form action of signUp page
 
